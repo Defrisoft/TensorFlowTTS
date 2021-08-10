@@ -409,7 +409,7 @@ def preprocess():
             random_state=42,
             shuffle=True,
         )
-      train_split_modified = []
+    train_split_modified = []
     for text_all in train_split:
         text_actual =  text_all[0].replace('"','')
         audio_path = text_all[1].replace('\\"','/')
@@ -419,7 +419,7 @@ def preprocess():
         text_all.append(train_split[0][2])
         train_split_modified.append(tuple(text_all))
 
-  #This if for validation_set
+    #This if for validation_set
     valid_split_modified = []
     for text_all in  valid_split:
         text_actual =  text_all[0].replace('"','')
