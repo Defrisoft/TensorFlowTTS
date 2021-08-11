@@ -34,13 +34,13 @@ from tensorflow_tts.processor import LJSpeechProcessor
 from tensorflow_tts.processor import BakerProcessor
 from tensorflow_tts.processor import KSSProcessor
 from tensorflow_tts.processor import LibriTTSProcessor
-from tensorflow_tts.processor import ThorstenProcessor
+#from tensorflow_tts.processor import ThorstenProcessor
 
 from tensorflow_tts.processor.ljspeech import LJSPEECH_SYMBOLS
 from tensorflow_tts.processor.baker import BAKER_SYMBOLS
 from tensorflow_tts.processor.kss import KSS_SYMBOLS
 from tensorflow_tts.processor.libritts import LIBRITTS_SYMBOLS
-from tensorflow_tts.processor.thorsten import THORSTEN_SYMBOLS
+#from tensorflow_tts.processor.thorsten import THORSTEN_SYMBOLS
 
 from tensorflow_tts.utils import remove_outlier
 
@@ -351,7 +351,7 @@ def preprocess():
         "kss": KSSProcessor,
         "libritts": LibriTTSProcessor,
         "baker": BakerProcessor,
-        "thorsten": ThorstenProcessor,
+        #"thorsten": ThorstenProcessor,
     }
 
     dataset_symbol = {
@@ -359,7 +359,7 @@ def preprocess():
         "kss": KSS_SYMBOLS,
         "libritts": LIBRITTS_SYMBOLS,
         "baker": BAKER_SYMBOLS,
-        "thorsten": THORSTEN_SYMBOLS,
+       # "thorsten": THORSTEN_SYMBOLS,
     }
 
     dataset_cleaner = {
@@ -592,3 +592,10 @@ def compute_statistics():
     logging.info("Saving computed statistics.")
     scaler_list = [(scaler_mel, ""), (scaler_energy, "_energy"), (scaler_f0, "_f0")]
     save_statistics_to_file(scaler_list, config)
+
+
+
+if __name__ == "__main__":
+    preprocess()    
+    compute_statistics()
+    normalize()

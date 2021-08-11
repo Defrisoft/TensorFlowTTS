@@ -31,7 +31,6 @@ valid_symbols = [
   'N','NG',"NG'", "NY", 'P', 'R', 'S', 'SH', 'T', "TH", 'V',  'W', 'Y', 'Z', 
 ]
 
-
 _pad = "pad"
 _eos = "eos"
 _punctuation = "!'(),.:;? "

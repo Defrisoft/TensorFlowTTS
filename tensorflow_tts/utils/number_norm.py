@@ -28,13 +28,13 @@ def _expand_dollars(m):
   cents = int(parts[1]) if len(parts) > 1 and parts[1] else 0
   if dollars and cents:
     dollar_unit = 'shilingi' if dollars == 1 else 'shilingi'
-    cent_unit = 'centi' if cents == 1 else 'centi'
+    cent_unit = 'senti' if cents == 1 else 'senti'                   #cent -> senti
     return '%s %s, %s %s' % (dollars, dollar_unit, cents, cent_unit)
   elif dollars:
     dollar_unit = 'shilingi' if dollars == 1 else 'shilingi'
     return '%s %s' % (dollars, dollar_unit)
   elif cents:
-    cent_unit = 'centi' if cents == 1 else 'centi'
+    cent_unit = 'senti' if cents == 1 else 'senti'
     return '%s %s' % (cents, cent_unit)
   else:
     return 'shilingi sufuri'
@@ -61,7 +61,7 @@ def _expand_number(m):
 
 def normalize_numbers(text):
   text = re.sub(_comma_number_re, _remove_commas, text)
-  text = re.sub(_pounds_re, r'\1 poundi', text)
+  text = re.sub(_pounds_re, r'\1 paundi', text)  #pounds -> paundi, pound -> pauni
   text = re.sub(_dollars_re, _expand_dollars, text)
   text = re.sub(_decimal_number_re, _expand_decimal_point, text)
   text = re.sub(_ordinal_re, _expand_ordinal, text)
