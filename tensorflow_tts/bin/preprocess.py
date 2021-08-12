@@ -522,6 +522,17 @@ def gen_normal_mel(mel_path, scaler, config):
     *_, subdir, suffix = path.split(os.sep)
 
     utt_id = file_name.split(f"-{suffix}.npy")[0]
+
+    '''   
+    np.save(
+        os.path.join(
+            config["outdir"], subdir, "norm-feats", f"{utt_id}-norm-feats.npy"
+        ),
+        mel_norm.astype(np.float32),
+        allow_pickle=False,
+    )
+    '''
+
     np.save(
         os.path.join(
             config["outdir"], subdir, "norm-feats", f"{utt_id}-norm-feats.npy"
@@ -542,11 +553,13 @@ def normalize():
         )
         scaler.n_features_in_ = config["num_mels"]
     else:
-        raise ValueError("'npy' is the only supported format.")
+        raise ValueError("'npy' is the only supported format.")    
+    
 
     # find all "raw-feats" files in both train and valid folders
     glob_path = os.path.join(config["rootdir"], "**", "raw-feats", "*.npy")
     mel_raw_feats = glob.glob(glob_path, recursive=True)
+    print(mel_raw_feats[0:10])
     logging.info(f"Files to normalize: {len(mel_raw_feats)}")
 
     # check for output directories
@@ -563,10 +576,25 @@ def compute_statistics():
     config = parse_and_config()
 
     # find features files for the train split
-    glob_fn = lambda x: glob.glob(os.path.join(config["rootdir"], "train", x, "*.npy"))
-    glob_mel = glob_fn("raw-feats")
-    glob_f0 = glob_fn("raw-f0")
-    glob_energy = glob_fn("raw-energies")
+    #load raw-feats
+    raw_feats = {}
+    for np_name in glob.glob('./data/preprocess_dir/dump/train/raw-feats/*.np[yz]'):
+        raw_feats[np_name] = np.load(np_name)
+
+    #load raw-f0
+    raw_fo = {}
+    for np_name in glob.glob('./data/preprocess_dir/dump/train/raw-f0/*.np[yz]'):
+        raw_fo[np_name] = np.load(np_name)
+
+    #load raw-energies
+    raw_energies = {}
+    for np_name in glob.glob('./data/preprocess_dir/dump/train/raw-energies/*.np[yz]'):
+        raw_energies[np_name] = np.load(np_name)
+
+    glob_mel = raw_feats
+    glob_f0 = raw_fo
+    glob_energy = raw_energies
+
     assert (
         len(glob_mel) == len(glob_f0) == len(glob_energy)
     ), "Features, f0 and energies have different files in training split."
@@ -596,6 +624,6 @@ def compute_statistics():
 
 
 if __name__ == "__main__":
-    preprocess()    
-    compute_statistics()
+    #preprocess()    
+    #compute_statistics()
     normalize()

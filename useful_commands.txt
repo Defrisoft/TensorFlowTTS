@@ -4,4 +4,7 @@ tensorflow-tts-normalize --rootdir ./data/LJSpeech-1.1/ --outdir ./data/preproce
         --conf ./preprocess/ljspeech_preprocess.yaml --dataset ljspeech
 
 python .\tensorflow_tts\bin\preprocess.py --rootdir ./data/LJSpeech-1.1/ --outdir ./data/preprocess_dir/dump/ 
-        --conf ./preprocess/ljspeech_preprocess.yaml --dataset ljspeech        
+        --conf ./preprocess/ljspeech_preprocess.yaml --dataset ljspeech      
+
+python .\tensorflow_tts\bin\preprocess.py --rootdir ./data/preprocess_dir/dump/ --outdir ./data/preprocess_dir/dump/ 
+        --conf ./preprocess/ljspeech_preprocess.yaml --dataset ljspeech          
