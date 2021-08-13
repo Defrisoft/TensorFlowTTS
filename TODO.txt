@@ -1,3 +1,4 @@
 Check n_speakers:now 5
 Check non Kiswahili letters, like 'Q' and 'X'  
 I have assumed there are no quotations, since  I have replaced "" with '' for debugging purposes
+Try retrainiing the model without clipping

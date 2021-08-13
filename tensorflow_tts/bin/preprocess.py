@@ -429,7 +429,7 @@ def preprocess():
     valid_split_modified = []
     for text_all in  valid_split:
         text_actual =  text_all[0].replace('"','')
-        audio_path = text_all[1].replace('"','/')
+        audio_path = text_all[1].replace('"','')
         text_all = []
         text_all.append(text_actual)
         text_all.append(audio_path)
