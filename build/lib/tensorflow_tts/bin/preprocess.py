@@ -414,6 +414,7 @@ def preprocess():
         )
     print('\033[42m')
     print(train_split[:5])
+    #This is for training
     train_split_modified = []
     for text_all in train_split:
         text_actual =  text_all[0].replace('"','')
