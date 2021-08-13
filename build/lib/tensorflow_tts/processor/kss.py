@@ -12,76 +12,51 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Perform preprocessing and raw feature extraction for LJSpeech dataset."""
+"""Perform preprocessing and raw feature extraction for KSS dataset."""
 
 import os
 import re
-import logging
 
 import numpy as np
 import soundfile as sf
 from dataclasses import dataclass
 from tensorflow_tts.processor import BaseProcessor
 from tensorflow_tts.utils import cleaners
+from tensorflow_tts.utils.korean import symbols as KSS_SYMBOLS
 from tensorflow_tts.utils.utils import PROCESSOR_FILE_NAME
-
-
-valid_symbols = [
-  'A', 'E', 'I', 'O', 'U', 
-  'B', 'CH', 'D', "DH", 'F', 'G', 'GH', 'H',  'J', 'K', 'KH', 'L', 'M',
-  'N','NG',"NG'", "NY", 'P', 'R', 'S', 'SH', 'T', "TH", 'V',  'W', 'Y', 'Z', 
-]
-
-_pad = "pad"
-_eos = "eos"
-_punctuation = "!'(),.:;? "
-_special = "-"
-_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-
-# Prepend "@" to ARPAbet symbols to ensure uniqueness (some are the same as uppercase letters):
-_arpabet = ["@" + s for s in valid_symbols]
-
-# Export all symbols:
-LJSPEECH_SYMBOLS = (
-    [_pad] + list(_special) + list(_punctuation) + list(_letters) + _arpabet + [_eos]
-)
 
 # Regular expression matching text enclosed in curly braces:
 _curly_re = re.compile(r"(.*?)\{(.+?)\}(.*)")
 
 
 @dataclass
-class LJSpeechProcessor(BaseProcessor):
-    """LJSpeech processor."""
+class KSSProcessor(BaseProcessor):
+    """KSS processor."""
 
-    cleaner_names: str = "english_cleaners"
+    cleaner_names: str = "korean_cleaners"
     positions = {
         "wave_file": 0,
-        "text": 1,
         "text_norm": 2,
     }
-    train_f_name: str = "metadata.csv"
+    train_f_name: str = "transcript.v.1.4.txt"
 
     def create_items(self):
-        logging.info('Opening and spliting text files to ids, text and normalised texts')
         if self.data_dir:
             with open(
                 os.path.join(self.data_dir, self.train_f_name), encoding="utf-8"
             ) as f:
                 self.items = [self.split_line(self.data_dir, line, "|") for line in f]
-                                  
-                
 
     def split_line(self, data_dir, line, split):
         parts = line.strip().split(split)
         wave_file = parts[self.positions["wave_file"]]
         text_norm = parts[self.positions["text_norm"]]
-        wav_path = os.path.join(data_dir, "wavs", f"{wave_file}.wav")
-        speaker_name = "ljspeech"
+        wav_path = os.path.join(data_dir, "kss", wave_file)
+        speaker_name = "kss"
         return text_norm, wav_path, speaker_name
 
     def setup_eos_token(self):
-        return _eos
+        return "eos"
 
     def save_pretrained(self, saved_path):
         os.makedirs(saved_path, exist_ok=True)
@@ -109,6 +84,7 @@ class LJSpeechProcessor(BaseProcessor):
         return sample
 
     def text_to_sequence(self, text):
+
         sequence = []
         # Check for curly braces and treat their contents as ARPAbet:
         while len(text):

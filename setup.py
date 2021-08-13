@@ -43,7 +43,7 @@ requirements = {
         "textgrid",
         "click",
         "g2p_en",
-        "dataclasses",
+        #"dataclasses",
     ],
     "setup": ["numpy", "pytest-runner",],
     "test": [

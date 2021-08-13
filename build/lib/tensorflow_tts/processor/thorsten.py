@@ -16,7 +16,6 @@
 
 import os
 import re
-import logging
 
 import numpy as np
 import soundfile as sf
@@ -25,25 +24,15 @@ from tensorflow_tts.processor import BaseProcessor
 from tensorflow_tts.utils import cleaners
 from tensorflow_tts.utils.utils import PROCESSOR_FILE_NAME
 
-
-valid_symbols = [
-  'A', 'E', 'I', 'O', 'U', 
-  'B', 'CH', 'D', "DH", 'F', 'G', 'GH', 'H',  'J', 'K', 'KH', 'L', 'M',
-  'N','NG',"NG'", "NY", 'P', 'R', 'S', 'SH', 'T', "TH", 'V',  'W', 'Y', 'Z', 
-]
-
 _pad = "pad"
 _eos = "eos"
-_punctuation = "!'(),.:;? "
+_punctuation = "!'(),.? "
 _special = "-"
 _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
-# Prepend "@" to ARPAbet symbols to ensure uniqueness (some are the same as uppercase letters):
-_arpabet = ["@" + s for s in valid_symbols]
-
 # Export all symbols:
-LJSPEECH_SYMBOLS = (
-    [_pad] + list(_special) + list(_punctuation) + list(_letters) + _arpabet + [_eos]
+THORSTEN_SYMBOLS = (
+    [_pad] + list(_special) + list(_punctuation) + list(_letters) + [_eos]
 )
 
 # Regular expression matching text enclosed in curly braces:
@@ -51,33 +40,29 @@ _curly_re = re.compile(r"(.*?)\{(.+?)\}(.*)")
 
 
 @dataclass
-class LJSpeechProcessor(BaseProcessor):
-    """LJSpeech processor."""
+class ThorstenProcessor(BaseProcessor):
+    """Thorsten processor."""
 
-    cleaner_names: str = "english_cleaners"
+    cleaner_names: str = "german_cleaners"
     positions = {
         "wave_file": 0,
-        "text": 1,
-        "text_norm": 2,
+        "text_norm": 1,
     }
     train_f_name: str = "metadata.csv"
 
     def create_items(self):
-        logging.info('Opening and spliting text files to ids, text and normalised texts')
         if self.data_dir:
             with open(
                 os.path.join(self.data_dir, self.train_f_name), encoding="utf-8"
             ) as f:
                 self.items = [self.split_line(self.data_dir, line, "|") for line in f]
-                                  
-                
 
     def split_line(self, data_dir, line, split):
         parts = line.strip().split(split)
         wave_file = parts[self.positions["wave_file"]]
         text_norm = parts[self.positions["text_norm"]]
         wav_path = os.path.join(data_dir, "wavs", f"{wave_file}.wav")
-        speaker_name = "ljspeech"
+        speaker_name = "thorsten"
         return text_norm, wav_path, speaker_name
 
     def setup_eos_token(self):
