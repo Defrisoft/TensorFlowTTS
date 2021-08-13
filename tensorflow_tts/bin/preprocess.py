@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 # Copyright 2020 Minh Nguyen (@dathudeptrai)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -412,11 +412,13 @@ def preprocess():
             random_state=42,
             shuffle=True,
         )
-
+    print('\033[42m')
+    print(train_split[:5])
+    #This is for training
     train_split_modified = []
     for text_all in train_split:
         text_actual =  text_all[0].replace('"','')
-        audio_path = text_all[1].replace('\\"','/')
+        audio_path = text_all[1].replace('"','/')
         text_all = []
         text_all.append(text_actual)
         text_all.append(audio_path)
@@ -427,7 +429,7 @@ def preprocess():
     valid_split_modified = []
     for text_all in  valid_split:
         text_actual =  text_all[0].replace('"','')
-        audio_path = text_all[1].replace('\\"','/')
+        audio_path = text_all[1].replace('"','/')
         text_all = []
         text_all.append(text_actual)
         text_all.append(audio_path)
@@ -436,10 +438,10 @@ def preprocess():
         
     train_split = train_split_modified
     valid_split = valid_split_modified
+    print(train_split[:5])
+    print('\033[0m')
 
-
-
-
+     
     #log to show training and validation files        
     logging.info(f"Training items: {len(train_split)}")
     logging.info(f"Validation items: {len(valid_split)}")
@@ -632,7 +634,7 @@ def compute_statistics():
 
 
 if __name__ == "__main__":
-    #preprocess()    
+    preprocess()    
     #compute_statistics()
     #normalize() 
-    pass
+    #pass
