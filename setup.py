@@ -7,9 +7,9 @@ from distutils.version import LooseVersion
 import pip
 from setuptools import find_packages, setup
 
-if LooseVersion(sys.version) < LooseVersion("3.6"):
+if LooseVersion(sys.version) < LooseVersion("3.8.3"):
     raise RuntimeError(
-        "Tensorflow TTS requires python >= 3.6, "
+        "Tensorflow TTS requires python >= 3.8.3, "
         "but your Python version is {}".format(sys.version)
     )
 
@@ -89,8 +89,8 @@ setup(
     extras_require=extras_require,
     entry_points=entry_points,
     classifiers=[
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8.3",
+        "Programming Language :: Python :: 3.8.3",
         "Intended Audience :: Science/Research",
         "Operating System :: POSIX :: Linux",
         "License :: OSI Approved :: Apache Software License",
