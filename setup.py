@@ -13,7 +13,7 @@ if LooseVersion(sys.version) < LooseVersion("3.8.3"):
         "but your Python version is {}".format(sys.version)
     )
 
-if LooseVersion(pip.__version__) < LooseVersion("19"):
+if LooseVersion(pip.__version__) < LooseVersion("21.2.4"):
     raise RuntimeError(
         "pip>=19.0.0 is required, but your pip version is {}. "
         'Try again after "pip install -U pip"'.format(pip.__version__)
