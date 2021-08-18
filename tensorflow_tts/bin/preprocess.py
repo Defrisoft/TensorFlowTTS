@@ -371,8 +371,7 @@ def preprocess():
     }
 
 
-    logging.info('Another test for logging')
-    logging.info(f"Selected '{config['dataset']}' processor.")
+    logging.info('Selecting processor')
     logging.info(f"Selected '{config['dataset']}' processor.")
     processor = dataset_processor[config["dataset"]](
         config["rootdir"],
@@ -633,8 +632,8 @@ def compute_statistics():
 
 
 
-if __name__ == "__main__":
-    preprocess()    
+#if __name__ == "__main__":
+  #  preprocess()    
     #compute_statistics()
     #normalize() 
     #pass
