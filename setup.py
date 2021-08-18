@@ -31,7 +31,7 @@ requirements = {
         "matplotlib>=3.1.0",
         "PyYAML>=3.12",
         "tqdm>=4.26.1",
-        "h5py==2.10.0",
+        "h5py==3.1.0",
         "unidecode>=1.1.1",
         "inflect>=4.1.0",
         "scikit-learn>=0.22.0",
@@ -43,8 +43,8 @@ requirements = {
         "textgrid",
         "click",
         "g2p_en",
-        "numpy==1.17.3",
-        "gast==0.3.3"
+        "numpy==1.19.2",
+        "gast==0.4.0"
 
         #"dataclasses",
     ],
