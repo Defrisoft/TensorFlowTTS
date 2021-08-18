@@ -7,13 +7,13 @@ from distutils.version import LooseVersion
 import pip
 from setuptools import find_packages, setup
 
-if LooseVersion(sys.version) < LooseVersion("3.8"):
+if LooseVersion(sys.version) < LooseVersion("3.6"):
     raise RuntimeError(
-        "Tensorflow TTS requires python >= 3.8, "
+        "Tensorflow TTS requires python >= 3.6, "
         "but your Python version is {}".format(sys.version)
     )
 
-if LooseVersion(pip.__version__) < LooseVersion("21"):
+if LooseVersion(pip.__version__) < LooseVersion("19"):
     raise RuntimeError(
         "pip>=19.0.0 is required, but your pip version is {}. "
         'Try again after "pip install -U pip"'.format(pip.__version__)
@@ -43,7 +43,7 @@ requirements = {
         "textgrid",
         "click",
         "g2p_en",
-        "numpy==1.18.0",
+        "numpy==1.17.3",
         "gast==0.3.3"
 
         #"dataclasses",
@@ -89,8 +89,8 @@ setup(
     extras_require=extras_require,
     entry_points=entry_points,
     classifiers=[
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Intended Audience :: Science/Research",
         "Operating System :: POSIX :: Linux",
         "License :: OSI Approved :: Apache Software License",
