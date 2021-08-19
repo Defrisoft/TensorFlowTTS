@@ -1,4 +1,4 @@
-"""Setup Tensorflow TTS libarary."""
+ """Setup Tensorflow TTS libarary."""
 
 import os
 import sys
@@ -73,12 +73,12 @@ extras_require = {
 
 dirname = os.path.dirname(__file__)
 setup(
-    name="kiswahili_tts",
-    version="1.0",
-    url="https://github.com/Reaiot/TensorFlowTTS",
-    author="Humphry Shikunzi",
-    author_email="humphryshikunzi9@gmail.com",
-    description="This is a text to speech system in Kiswahili, inspired by the tts in english based on tacotron model and ljspeech dataset",
+    name="TensorFlowTTS",
+    version="0.0",
+    url="https://github.com/tensorspeech/TensorFlowTTS",
+    author="Minh Nguyen Quan Anh, Eren Gölge, Kuan Chen, Dawid Kobus, Takuya Ebata, Trinh Le Quang, Yunchao He, Alejandro Miguel Velasquez",
+    author_email="nguyenquananhminh@gmail.com",
+    description="TensorFlowTTS: Real-Time State-of-the-art Speech Synthesis for Tensorflow 2",
     long_description=open(os.path.join(dirname, "README.md"), encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     license="Apache-2.0",
