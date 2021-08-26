@@ -39,7 +39,8 @@ _abbreviations = [
        ('Dkt', 'Daktari'), 
        ('–', 'hadi'),
        ('prof' , 'profesa'),
-       ('n.k.' , 'na kadhalika')
+       ('n.k.' , 'na kadhalika'),
+        ('pst', 'pasta')
     ]
 ]
 
